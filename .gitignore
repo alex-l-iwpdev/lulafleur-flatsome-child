@@ -7,13 +7,4 @@ node_modules/
 Thumbs.db
 quote.log
 yarn.lock
-/vendor/bin/
-/vendor/psr/
-/vendor/guzzlehttp/
-/vendor/ralouphie/
-/vendor/phpcompatibility/
-/vendor/php-coveralls/
-/vendor/squizlabs/
-/vendor/symfony/
-/vendor/wp-coding-standards/
-/vendor/composer/autoload_files.php
+/vendor/
