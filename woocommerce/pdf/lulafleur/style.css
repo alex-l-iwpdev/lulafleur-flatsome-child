@@ -1,0 +1,113 @@
+.invoice-table {
+	font-family: Arial;
+	padding: 0px;
+	line-height: 1.3;
+	font-size: 14px;
+}
+
+.invoice-table .button {
+	display: inline-block;
+	text-decoration: none;
+	color: #000;
+	box-shadow: inset 0 0 2px 1px #ccc;
+	padding: 10px 25px;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.invoice-table .tl {
+	text-align: left;
+}
+
+.invoice-table .tr {
+	text-align: right;
+}
+
+.invoice-table .mb {
+	margin: 0 0 20px;
+}
+
+.invoice-table .mn {
+	margin: 0;
+}
+
+.invoice-table .mn > * {
+	margin: 0;
+	padding: 0;
+}
+
+.invoice-table .mn br {
+	display: none;
+}
+
+.invoice-price-contacts {
+	border-top: 2px solid #ccc;
+	padding: 20px 10px;
+	width: 100%;
+}
+
+.invoice-price-contacts td {
+	vertical-align: middle;
+}
+
+.invoice-table .w50 {
+	width: 50%;
+}
+
+.invoice-table .w200 {
+	width: 200px;
+}
+
+.invoice-table .vt {
+	vertical-align: top;
+}
+
+.invoice-table a {
+	text-decoration: none;
+	color: #000;
+}
+
+.invoice-price-table {
+	width: 100%;
+}
+
+.invoice-price-table .w40 {
+	width: 40px;
+}
+
+.invoice-price-table th {
+	text-align: right;
+	background-color: #f1f1f1;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+}
+
+.invoice-price-table td:nth-of-type(2),
+.invoice-price-table th:nth-of-type(2) {
+	text-align: left;
+}
+
+.invoice-price-table .bn {
+	border: none;
+}
+
+.invoice-price-table td {
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	text-align: right;
+}
+
+.invoice-description-table {
+	border-top: 2px solid #ccc;
+	border-bottom: 2px solid #ccc;
+	width: 100%;
+	margin: 20px 0 30px;
+}
+
+.invoice-description-table tr:not(:last-of-type) td {
+	border-bottom: 2px solid #ccc;
+}
+
+.invoice-description-table tr td {
+	padding: 10px 0;
+}

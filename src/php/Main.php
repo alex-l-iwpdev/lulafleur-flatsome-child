@@ -7,6 +7,7 @@
 
 namespace Iwpdev\FlatsomeChild;
 
+use Iwpdev\FlatsomeChild\CarbonFields\InvoiceSettings;
 use Iwpdev\FlatsomeChild\WooCommerce\Checkout;
 
 /**
@@ -25,6 +26,7 @@ class Main {
 		$this->init();
 
 		new Checkout();
+		new InvoiceSettings();
 	}
 
 	/**

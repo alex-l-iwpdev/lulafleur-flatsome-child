@@ -33,6 +33,8 @@ class Checkout {
 		add_action( 'woocommerce_checkout_update_order_meta', [ $this, 'save_date_not_vat_invoice' ] );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'show_unknown_address_in_order' ] );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'show_not_vat_in_order' ] );
+		add_action( 'woocommerce_checkout_order_created', [ $this, 'set_invoice_number' ] );
+
 	}
 
 	/**
@@ -212,6 +214,20 @@ class Checkout {
 			if ( $receiver_phone ) {
 				echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
 			}
+		}
+	}
+
+	/**
+	 * Set invoice number.
+	 *
+	 * @return void
+	 */
+	public function set_invoice_number(): void {
+		$invoice_number = get_transient( 'fl_invoice_number' );
+
+		if ( ! empty( $invoice_number ) ) {
+			$invoice_number ++;
+			set_transient( 'fl_invoice_number', $invoice_number, MONTH_IN_SECONDS );
 		}
 	}
 }
