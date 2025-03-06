@@ -27,6 +27,7 @@ class Main {
 
 		new Checkout();
 		new InvoiceSettings();
+		new ShortCodes\HeaderTop();
 	}
 
 	/**

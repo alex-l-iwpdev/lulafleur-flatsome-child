@@ -31,3 +31,4 @@ require_once __DIR__ . '/vendor/autoload.php';
  * Load main class.
  */
 new Main();
+
