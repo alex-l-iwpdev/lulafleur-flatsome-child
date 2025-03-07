@@ -38,6 +38,7 @@ class Main {
 	private function init(): void {
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'add_scripts_and_styles' ] );
+		add_filter( 'woocommerce_cart_ready_to_calc_shipping', '__return_false' );
 	}
 
 	/**

@@ -37,6 +37,25 @@ class InvoiceSettings {
 		add_action( 'carbon_fields_register_fields', [ $this, 'register_invoice_fields' ] );
 	}
 
+	public static function get_quantity_text() {
+		$language_code = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : 'en';
+
+		switch ( $language_code ) {
+			case 'en':
+				return carbon_get_theme_option( self::FILED_PREFIX . 'quantity_en' );
+				break;
+			case 'pl':
+				return carbon_get_theme_option( self::FILED_PREFIX . 'quantity_pl' );
+
+				break;
+			case 'uk':
+				return carbon_get_theme_option( self::FILED_PREFIX . 'quantity_ua' );
+				break;
+			default:
+				return carbon_get_theme_option( self::FILED_PREFIX . 'quantity_en' );
+		}
+	}
+
 	/**
 	 * Load boot class.
 	 *
@@ -63,6 +82,9 @@ class InvoiceSettings {
 					Field::make( 'text', self::FILED_PREFIX . 'account_number', __( 'Account number', 'flatsome' ) ),
 					Field::make( 'text', self::FILED_PREFIX . 'bank_name', __( 'Bank name', 'flatsome' ) ),
 					Field::make( 'text', self::FILED_PREFIX . 'vat_description', __( 'Vat description', 'flatsome' ) ),
+					Field::make( 'text', self::FILED_PREFIX . 'quantity_en', __( 'Quantity EN', 'flatsome' ) ),
+					Field::make( 'text', self::FILED_PREFIX . 'quantity_pl', __( 'Quantity PL', 'flatsome' ) ),
+					Field::make( 'text', self::FILED_PREFIX . 'quantity_ua', __( 'Quantity UA', 'flatsome' ) ),
 				]
 			);
 	}

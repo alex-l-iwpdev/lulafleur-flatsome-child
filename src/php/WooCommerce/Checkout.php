@@ -223,7 +223,7 @@ class Checkout {
 	 * @return void
 	 */
 	public function set_invoice_number(): void {
-		$invoice_number = get_transient( 'fl_invoice_number' );
+		$invoice_number = (int) get_transient( 'fl_invoice_number' );
 
 		if ( ! empty( $invoice_number ) ) {
 			$invoice_number ++;

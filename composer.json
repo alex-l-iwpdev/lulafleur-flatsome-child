@@ -25,7 +25,8 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "htmlburger/carbon-fields": "^3.6"
+    "htmlburger/carbon-fields": "^3.6",
+    "kwn/number-to-words": "^2.11"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",

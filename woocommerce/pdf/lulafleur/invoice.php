@@ -6,14 +6,16 @@
  */
 
 use Iwpdev\FlatsomeChild\CarbonFields\InvoiceSettings;
+use NumberToWords\NumberToWords;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-$invoice_number = get_transient( 'fl_invoice_number' );
+$invoice_number = (int) get_transient( 'fl_invoice_number' );
 if ( empty( $invoice_number ) ) {
 	$invoice_number = 1;
+	set_transient( 'fl_invoice_number', $invoice_number, MONTH_IN_SECONDS );
 }
 
 $order_id = $this->order->get_id();
@@ -200,9 +202,19 @@ $order_id = $this->order->get_id();
 									<?php echo esc_html( $item->get_name() ); ?>
 								</p>
 							</td>
-							<td><p class="mn"><?php echo esc_html( $item->get_quantity() ); ?></p></td>
-							<td><p class="mn"><?php echo wp_kses_post( $product->get_price() ); ?></p></td>
-							<td><p class="mn"><?php echo wp_kses_post( $product->get_price() ); ?></p></td>
+							<td>
+								<p class="mn"><?php echo esc_html( $item->get_quantity() ) . ' ' . InvoiceSettings::get_quantity_text(); ?></p>
+							</td>
+							<td><p class="mn">
+									<?php
+									echo wp_kses_post( number_format( $product->get_price(), 2 ) . ' ' . get_woocommerce_currency_symbol() ); ?>
+								</p>
+							</td>
+							<td><p class="mn">
+									<?php
+									echo wp_kses_post( number_format( $product->get_price(), 2 ) . ' ' . get_woocommerce_currency_symbol() ); ?>
+								</p>
+							</td>
 						</tr>
 						<?php
 						$iterator ++;
@@ -214,8 +226,8 @@ $order_id = $this->order->get_id();
 							echo '<td class="w40 bn"></td>';
 							printf( '<td>%s</td>', esc_html( $shipping->get_name() ) );
 							echo '<td></td>';
-							printf( '<td>%s</td>', esc_html( $this->order->get_shipping_total() ) );
-							printf( '<td>%s</td>', esc_html( $this->order->get_shipping_total() ) );
+							printf( '<td>%s</td>', esc_html( number_format( $this->order->get_shipping_total(), 2 ) . ' ' . get_woocommerce_currency_symbol() ) );
+							printf( '<td>%s</td>', esc_html( number_format( $this->order->get_shipping_total(), 2 ) . ' ' . get_woocommerce_currency_symbol() ) );
 						}
 						?>
 					</tr>
@@ -224,7 +236,9 @@ $order_id = $this->order->get_id();
 						<td class="bn"></td>
 						<td class="bn"></td>
 						<td><strong><?php esc_html_e( 'Razem', 'flatsome' ); ?></strong></td>
-						<td><strong><?php echo esc_html( $this->order->get_total() ); ?></strong></td>
+						<td>
+							<strong><?php echo esc_html( number_format( $this->order->get_total(), 2 ) . ' ' . get_woocommerce_currency_symbol() ); ?></strong>
+						</td>
 					</tr>
 					<tr>
 						<td class="w40 bn"></td>
@@ -246,6 +260,19 @@ $order_id = $this->order->get_id();
 					<td class="vt w200"></td>
 					<td>
 						<?php echo esc_html( carbon_get_theme_option( InvoiceSettings::FILED_PREFIX . 'vat_description' ) ?? '' ); ?>
+					</td>
+				</tr>
+				<tr>
+					<td class="vt w200">
+						<?php esc_html_e( 'For payment ', 'flatsome' ); ?>
+					</td>
+					<td>
+						<?php echo wp_kses_post( wc_price( $this->order->get_total() ) ); ?>
+						<?php
+						$numberToWords = new NumberToWords();
+						$converter     = $numberToWords->getNumberTransformer( defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : 'en' );
+						echo esc_html( $converter->toWords( $this->order->get_total() ) );
+						?>
 					</td>
 				</tr>
 			</table>
