@@ -120,7 +120,9 @@ $order_id = $this->order->get_id();
 						<p class="mn">
 							<?php
 							$nip = get_post_meta( $order_id, '_company_nip', true );
-
+							if ( ! empty( $nip ) ) {
+								esc_html_e( 'NIP: ', 'flatsome' );
+							}
 							echo esc_html( $nip ?? '' );
 							?>
 						</p>
