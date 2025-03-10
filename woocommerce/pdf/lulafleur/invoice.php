@@ -119,7 +119,7 @@ $order_id = $this->order->get_id();
 					<td class="w50 vt mn">
 						<p class="mn">
 							<?php
-							$nip = get_post_meta( $order_id, '_nip', true );
+							$nip = get_post_meta( $order_id, '_company_nip', true );
 
 							echo esc_html( $nip ?? '' );
 							?>
@@ -270,8 +270,8 @@ $order_id = $this->order->get_id();
 						<?php echo wp_kses_post( wc_price( $this->order->get_total() ) ); ?>
 						<?php
 						$numberToWords = new NumberToWords();
-						$converter     = $numberToWords->getNumberTransformer( defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : 'en' );
-						echo esc_html( $converter->toWords( $this->order->get_total() ) );
+						$converter     = $numberToWords->getCurrencyTransformer( defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : 'en' );
+						echo esc_html( $converter->toWords( round( $this->order->get_total() * 100 ), 'PLN' ) );
 						?>
 					</td>
 				</tr>
@@ -283,7 +283,7 @@ $order_id = $this->order->get_id();
 	</tr>
 	<tr class="tr">
 		<td>
-			<?php echo esc_html( $buyer_firm = $this->order->get_billing_first_name() . ' ' . $this->order->get_billing_last_name() ); ?>
+			<?php echo esc_html( carbon_get_theme_option( InvoiceSettings::FILED_PREFIX . 'store_name' ) ?? '' ); ?>
 		</td>
 	</tr>
 </table>

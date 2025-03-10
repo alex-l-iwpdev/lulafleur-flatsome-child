@@ -98,6 +98,10 @@
 	text-transform: uppercase;
 }
 
+.woocommerce-cart .wc-block-components-totals-shipping__collaterals {
+	display: none;
+}
+
 @media only screen and (max-width: 1359px) {
 	[data-fulfillment-type="pickup"],
 	[data-fulfillment-type="delivery"] {
