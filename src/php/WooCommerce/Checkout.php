@@ -34,7 +34,39 @@ class Checkout {
 		add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'show_unknown_address_in_order' ] );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', [ $this, 'show_not_vat_in_order' ] );
 		add_action( 'woocommerce_checkout_order_created', [ $this, 'set_invoice_number' ] );
+		add_action( 'woocommerce_email_before_order_table', [ $this, 'set_phone_number_in_email' ] );
+		add_action( 'wpo_wcpdf_document_is_allowed', [ $this, 'generate_invoice' ], 10, 2 );
 
+	}
+
+	public static function set_phone_number_in_email( $order ) {
+		$receiver_phone  = get_post_meta( $order->get_id(), '_receiver_phone', true );
+		$unknown_address = get_post_meta( $order->get_id(), '_unknown_address', true );
+
+		if ( $unknown_address === 'yes' ) {
+			echo '<p><strong>' . __( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
+			if ( $receiver_phone ) {
+				echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
+			}
+		}
+	}
+
+	/**
+	 * Generate invoice.
+	 *
+	 * @param $allowed
+	 * @param $document
+	 *
+	 * @return false|mixed
+	 */
+	public static function generate_invoice( $allowed, $document ) {
+		$nip = get_post_meta( $document->order->get_id(), '_company_nip', true );
+
+		if ( empty( $nip ) ) {
+			return false;
+		}
+
+		return $allowed;
 	}
 
 	/**

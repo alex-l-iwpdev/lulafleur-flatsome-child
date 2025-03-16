@@ -237,7 +237,7 @@ $order_id = $this->order->get_id();
 						<td class="w40 bn"></td>
 						<td class="bn"></td>
 						<td class="bn"></td>
-						<td><strong><?php esc_html_e( 'Razem', 'flatsome' ); ?></strong></td>
+						<td><strong><?php esc_html_e( 'Total', 'flatsome' ); ?></strong></td>
 						<td>
 							<strong><?php echo esc_html( number_format( $this->order->get_total(), 2 ) . ' ' . get_woocommerce_currency_symbol() ); ?></strong>
 						</td>
@@ -246,7 +246,7 @@ $order_id = $this->order->get_id();
 						<td class="w40 bn"></td>
 						<td class="bn"></td>
 						<td class="bn"></td>
-						<td class="bn"><strong><?php esc_html_e( 'Total', 'flatsome' ); ?></strong></td>
+						<td class="bn"><strong><?php esc_html_e( 'Value', 'flatsome' ); ?></strong></td>
 						<td class="bn">
 							<p class="mn"><?php echo wp_kses_post( wc_price( $this->order->get_total() ) ); ?></p>
 						</td>
