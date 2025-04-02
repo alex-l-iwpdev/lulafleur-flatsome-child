@@ -294,7 +294,7 @@ class Checkout {
 		$fields['shipping_phone_number'] = [
 			'label'       => __( 'Recipient\'s phone', 'flatsome' ),
 			'placeholder' => __( 'Enter the recipient\'s phone', 'flatsome' ),
-			'required'    => false,
+			'required'    => true,
 			'class'       => [ 'form-row-wide' ],
 			'clear'       => true,
 		];
