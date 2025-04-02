@@ -36,18 +36,38 @@ class Checkout {
 		add_action( 'woocommerce_checkout_order_created', [ $this, 'set_invoice_number' ] );
 		add_action( 'woocommerce_email_before_order_table', [ $this, 'set_phone_number_in_email' ] );
 		add_action( 'wpo_wcpdf_document_is_allowed', [ $this, 'generate_invoice' ], 10, 2 );
-
+		add_action( 'woocommerce_shipping_fields', [ $this, 'add_phone_shipping_address' ], 10, 2 );
+		add_action( 'woocommerce_checkout_update_order_meta', [ $this, 'save_phone_shipping_address' ], 10, 2 );
+		add_action(
+			'woocommerce_admin_order_data_after_shipping_address',
+			[
+				$this,
+				'display_phone_shipping_address',
+			]
+		);
 	}
 
+	/**
+	 * Set phone number in email.
+	 *
+	 * @param WC_Checkout $checkout Woocommerce Checkout class.
+	 *
+	 * @return void
+	 */
 	public static function set_phone_number_in_email( $order ) {
 		$receiver_phone  = get_post_meta( $order->get_id(), '_receiver_phone', true );
 		$unknown_address = get_post_meta( $order->get_id(), '_unknown_address', true );
+		$phone_field     = get_post_meta( $order->get_id(), '_shipping_phone_number', true );
 
 		if ( $unknown_address === 'yes' ) {
 			echo '<p><strong>' . __( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
 			if ( $receiver_phone ) {
 				echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
 			}
+		}
+
+		if ( ! empty( $phone_field ) ) {
+			echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $phone_field ) . '</p>';
 		}
 	}
 
@@ -260,6 +280,52 @@ class Checkout {
 		if ( ! empty( $invoice_number ) ) {
 			$invoice_number ++;
 			set_transient( 'fl_invoice_number', $invoice_number, MONTH_IN_SECONDS );
+		}
+	}
+
+	/**
+	 * Add  phone shipping address
+	 *
+	 * @param array $fields
+	 *
+	 * @return array
+	 */
+	public function add_phone_shipping_address( array $fields ): array {
+		$fields['shipping_phone_number'] = [
+			'label'       => __( 'Recipient\'s phone', 'flatsome' ),
+			'placeholder' => __( 'Enter the recipient\'s phone', 'flatsome' ),
+			'required'    => false,
+			'class'       => [ 'form-row-wide' ],
+			'clear'       => true,
+		];
+
+		return $fields;
+	}
+
+	/**
+	 * Save phone shipping address.
+	 *
+	 * @param int $order_id Order ID.
+	 *
+	 * @return void
+	 */
+	public function save_phone_shipping_address( int $order_id ): void {
+		if ( ! empty( $_POST['shipping_phone_number'] ) ) {
+			update_post_meta( $order_id, '_shipping_phone_number', sanitize_text_field( $_POST['shipping_phone_number'] ) );
+		}
+	}
+
+	/**
+	 * Display phone shipping address.
+	 *
+	 * @param WC_Order $order WooCommerce Order class.
+	 *
+	 * @return void
+	 */
+	public function display_phone_shipping_address( $order ) {
+		$custom_field = get_post_meta( $order->get_id(), '_shipping_phone_number', true );
+		if ( $custom_field ) {
+			echo '<p><strong>' . __( 'Recipient\'s phone:', 'flatsome' ) . '</strong> ' . esc_html( $custom_field ) . '</p>';
 		}
 	}
 }
