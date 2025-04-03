@@ -181,6 +181,17 @@ class Checkout {
 			$checkout->get_value( 'receiver_phone' )
 		);
 		echo '</div></div>';
+		echo '<div id="photo_to_address_checkbox">';
+		woocommerce_form_field(
+			'photo_to_email_address',
+			[
+				'type'  => 'checkbox',
+				'class' => [ 'form-row-wide' ],
+				'label' => __( 'I want to receive a photo of the bouquet by e-mail', 'flatsome' ),
+			],
+			$checkout->get_value( 'unknown_address' )
+		);
+		echo '</div>';
 	}
 
 	/**
@@ -215,6 +226,7 @@ class Checkout {
 	 */
 	public function save_date_unknown_address( int $order_id ): void {
 		update_post_meta( $order_id, '_unknown_address', ! empty( $_POST['unknown_address'] ) ? 'yes' : 'no' );
+		update_post_meta( $order_id, '_photo_to_email_address', ! empty( $_POST['photo_to_email_address'] ) ? 'yes' : 'no' );
 
 		if ( ! empty( $_POST['receiver_phone'] ) ) {
 			update_post_meta( $order_id, '_receiver_phone', sanitize_text_field( wp_unslash( $_POST['receiver_phone'] ) ) );
@@ -258,14 +270,19 @@ class Checkout {
 	 * @return void
 	 */
 	public function show_unknown_address_in_order( WC_Order $order ): void {
-		$unknown_address = get_post_meta( $order->get_id(), '_unknown_address', true );
-		$receiver_phone  = get_post_meta( $order->get_id(), '_receiver_phone', true );
+		$unknown_address        = get_post_meta( $order->get_id(), '_unknown_address', true );
+		$receiver_phone         = get_post_meta( $order->get_id(), '_receiver_phone', true );
+		$photo_to_email_address = get_post_meta( $order->get_id(), '_photo_to_email_address', true );
 
 		if ( $unknown_address === 'yes' ) {
 			echo '<p><strong>' . __( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
 			if ( $receiver_phone ) {
 				echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
 			}
+		}
+
+		if ( 'yes' === $photo_to_email_address ) {
+			echo '<p><strong>' . __( 'I want to receive a photo of the bouquet by e-mail ', 'flatsome' ) . ':</strong> ✔</p>';
 		}
 	}
 
