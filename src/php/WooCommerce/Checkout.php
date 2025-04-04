@@ -55,9 +55,10 @@ class Checkout {
 	 * @return void
 	 */
 	public static function set_phone_number_in_email( $order ) {
-		$receiver_phone  = get_post_meta( $order->get_id(), '_receiver_phone', true );
-		$unknown_address = get_post_meta( $order->get_id(), '_unknown_address', true );
-		$phone_field     = get_post_meta( $order->get_id(), '_shipping_phone_number', true );
+		$receiver_phone         = get_post_meta( $order->get_id(), '_receiver_phone', true );
+		$unknown_address        = get_post_meta( $order->get_id(), '_unknown_address', true );
+		$phone_field            = get_post_meta( $order->get_id(), '_shipping_phone_number', true );
+		$photo_to_email_address = get_post_meta( $order->get_id(), '_photo_to_email_address', true );
 
 		if ( $unknown_address === 'yes' ) {
 			echo '<p><strong>' . __( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
@@ -68,6 +69,10 @@ class Checkout {
 
 		if ( ! empty( $phone_field ) ) {
 			echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $phone_field ) . '</p>';
+		}
+
+		if ( 'yes' === $photo_to_email_address ) {
+			echo '<p><strong>' . __( 'I want to receive a photo of the bouquet by e-mail ', 'flatsome' ) . ':</strong> ✔</p>';
 		}
 	}
 
