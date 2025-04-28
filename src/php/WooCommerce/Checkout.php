@@ -61,18 +61,18 @@ class Checkout {
 		$photo_to_email_address = get_post_meta( $order->get_id(), '_photo_to_email_address', true );
 
 		if ( $unknown_address === 'yes' ) {
-			echo '<p><strong>' . __( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
+			echo '<p><strong>' . esc_html__( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
 			if ( $receiver_phone ) {
-				echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
+				echo '<p><strong>' . esc_html__( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
 			}
 		}
 
 		if ( ! empty( $phone_field ) ) {
-			echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $phone_field ) . '</p>';
+			echo '<p><strong>' . esc_html__( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $phone_field ) . '</p>';
 		}
 
 		if ( 'yes' === $photo_to_email_address ) {
-			echo '<p><strong>' . __( 'I want to receive a photo of the bouquet by e-mail ', 'flatsome' ) . ':</strong> ✔</p>';
+			echo '<p><strong>' . esc_html__( 'I want to receive a photo of the bouquet by e-mail ', 'flatsome' ) . ':</strong> ✔</p>';
 		}
 	}
 
@@ -108,7 +108,7 @@ class Checkout {
 			[
 				'type'  => 'checkbox',
 				'class' => [ 'form-row-wide' ],
-				'label' => __( 'Invoice (not VAT)', 'flatsome' ),
+				'label' => esc_html__( 'Invoice (not VAT)', 'flatsome' ),
 			],
 			$checkout->get_value( 'not_vat' )
 		);
@@ -119,9 +119,9 @@ class Checkout {
 			[
 				'type'        => 'text',
 				'class'       => [ 'form-row-wide' ],
-				'label'       => __( 'Company Name', 'flatsome' ),
+				'label'       => esc_html__( 'Company Name', 'flatsome' ),
 				'required'    => true,
-				'placeholder' => __( 'Enter your company name', 'flatsome' ),
+				'placeholder' => esc_html__( 'Enter your company name', 'flatsome' ),
 			],
 			$checkout->get_value( 'company_name' )
 		);
@@ -132,9 +132,9 @@ class Checkout {
 			[
 				'type'        => 'text',
 				'class'       => [ 'form-row-wide' ],
-				'label'       => __( 'Company Address', 'flatsome' ),
+				'label'       => esc_html__( 'Company Address', 'flatsome' ),
 				'required'    => true,
-				'placeholder' => __( 'Enter your company address', 'flatsome' ),
+				'placeholder' => esc_html__( 'Enter your company address', 'flatsome' ),
 			],
 			$checkout->get_value( 'company_address' )
 		);
@@ -145,9 +145,9 @@ class Checkout {
 			[
 				'type'        => 'text',
 				'class'       => [ 'form-row-wide' ],
-				'label'       => __( 'Company NIP', 'flatsome' ),
+				'label'       => esc_html__( 'Company NIP', 'flatsome' ),
 				'required'    => true,
-				'placeholder' => __( 'Enter your company NIP', 'flatsome' ),
+				'placeholder' => esc_html__( 'Enter your company NIP', 'flatsome' ),
 			],
 			$checkout->get_value( 'company_nip' )
 		);
@@ -168,7 +168,7 @@ class Checkout {
 			[
 				'type'  => 'checkbox',
 				'class' => [ 'form-row-wide' ],
-				'label' => __( 'I don\'t know the recipient\'s address, contact by phone', 'flatsome' ),
+				'label' => esc_html__( 'I don\'t know the recipient\'s address, contact by phone', 'flatsome' ),
 			],
 			$checkout->get_value( 'unknown_address' )
 		);
@@ -179,9 +179,9 @@ class Checkout {
 			[
 				'type'        => 'tel',
 				'class'       => [ 'form-row-wide' ],
-				'label'       => __( 'Phone of the recipient', 'flatsome' ),
+				'label'       => esc_html__( 'Phone of the recipient', 'flatsome' ),
 				'required'    => true,
-				'placeholder' => __( 'Enter your phone number', 'flatsome' ),
+				'placeholder' => esc_html__( 'Enter your phone number', 'flatsome' ),
 			],
 			$checkout->get_value( 'receiver_phone' )
 		);
@@ -192,7 +192,7 @@ class Checkout {
 			[
 				'type'  => 'checkbox',
 				'class' => [ 'form-row-wide' ],
-				'label' => __( 'I want to receive a photo of the bouquet by e-mail', 'flatsome' ),
+				'label' => esc_html__( 'I want to receive a photo of the bouquet by e-mail', 'flatsome' ),
 			],
 			$checkout->get_value( 'unknown_address' )
 		);
@@ -252,17 +252,17 @@ class Checkout {
 		$company_nip     = get_post_meta( $order->get_id(), '_company_nip', true );
 
 		if ( $not_vat === 'yes' ) {
-			echo '<p><strong>' . __( 'Invoice (not VAT)', 'flatsome' ) . ':</strong> ✔</p>';
+			echo '<p><strong>' . esc_html__( 'Invoice (not VAT)', 'flatsome' ) . ':</strong> ✔</p>';
 			if ( $company_name ) {
-				echo '<p><strong>' . __( 'Company Name', 'flatsome' ) . ':</strong> ' . esc_html( $company_name ) . '</p>';
+				echo '<p><strong>' . esc_html__( 'Company Name', 'flatsome' ) . ':</strong> ' . esc_html( $company_name ) . '</p>';
 			}
 
 			if ( $company_address ) {
-				echo '<p><strong>' . __( 'Company Address', 'flatsome' ) . ':</strong> ' . esc_html( $company_address ) . '</p>';
+				echo '<p><strong>' . esc_html__( 'Company Address', 'flatsome' ) . ':</strong> ' . esc_html( $company_address ) . '</p>';
 			}
 
 			if ( $company_nip ) {
-				echo '<p><strong>' . __( 'Company NIP', 'flatsome' ) . ':</strong> ' . esc_html( $company_nip ) . '</p>';
+				echo '<p><strong>' . esc_html__( 'Company NIP', 'flatsome' ) . ':</strong> ' . esc_html( $company_nip ) . '</p>';
 			}
 		}
 	}
@@ -280,14 +280,14 @@ class Checkout {
 		$photo_to_email_address = get_post_meta( $order->get_id(), '_photo_to_email_address', true );
 
 		if ( $unknown_address === 'yes' ) {
-			echo '<p><strong>' . __( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
+			echo '<p><strong>' . esc_html__( 'I don\'t know the recipient\'s address', 'flatsome' ) . ':</strong> ✔</p>';
 			if ( $receiver_phone ) {
-				echo '<p><strong>' . __( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
+				echo '<p><strong>' . esc_html__( 'Phone of the recipient', 'flatsome' ) . ':</strong> ' . esc_html( $receiver_phone ) . '</p>';
 			}
 		}
 
 		if ( 'yes' === $photo_to_email_address ) {
-			echo '<p><strong>' . __( 'I want to receive a photo of the bouquet by e-mail ', 'flatsome' ) . ':</strong> ✔</p>';
+			echo '<p><strong>' . esc_html__( 'I want to receive a photo of the bouquet by e-mail ', 'flatsome' ) . ':</strong> ✔</p>';
 		}
 	}
 
@@ -314,8 +314,8 @@ class Checkout {
 	 */
 	public function add_phone_shipping_address( array $fields ): array {
 		$fields['shipping_phone_number'] = [
-			'label'       => __( 'Recipient\'s phone', 'flatsome' ),
-			'placeholder' => __( 'Enter the recipient\'s phone', 'flatsome' ),
+			'label'       => esc_html__( 'Recipient\'s phone', 'flatsome' ),
+			'placeholder' => esc_html__( 'Enter the recipient\'s phone', 'flatsome' ),
 			'required'    => true,
 			'class'       => [ 'form-row-wide' ],
 			'clear'       => true,
@@ -347,7 +347,7 @@ class Checkout {
 	public function display_phone_shipping_address( $order ) {
 		$custom_field = get_post_meta( $order->get_id(), '_shipping_phone_number', true );
 		if ( $custom_field ) {
-			echo '<p><strong>' . __( 'Recipient\'s phone:', 'flatsome' ) . '</strong> ' . esc_html( $custom_field ) . '</p>';
+			echo '<p><strong>' . esc_html__( 'Recipient\'s phone:', 'flatsome' ) . '</strong> ' . esc_html( $custom_field ) . '</p>';
 		}
 	}
 }
